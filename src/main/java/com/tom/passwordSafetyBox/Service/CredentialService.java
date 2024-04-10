@@ -56,13 +56,13 @@ public class CredentialService {
 	}
 
 	public CredentialDto getCredentialByUrlAndLogin (String url,String login){
-		Credential credential = this.credentialRepository.findByUrlandLoginId(url,login);
+		Credential credential = this.credentialRepository.findByUrlAndLoginId(url,login);
 		return CredentialMapper.mapToCredentialDto(credential);
 
 	}
 
-	public boolean isCredentialExists(String url,String login){
-		return this.isCredentialExists(url,login);
+	public boolean isCredentialInDataBase(String url,String login){
+		return this.credentialRepository.existsCredentialByUrlAndLoginId(url,login);
 	}
 
 }

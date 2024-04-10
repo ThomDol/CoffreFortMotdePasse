@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -26,6 +27,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.tom.passwordSafetyBox.Service.AppRoleService;
 import com.tom.passwordSafetyBox.Service.UserService;
 import com.tom.passwordSafetyBox.entity.AppUser;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableMethodSecurity
@@ -66,6 +71,8 @@ public class SecurityConfig {
 		.addFilterBefore(new JwtAuthorizationFilter(),UsernamePasswordAuthenticationFilter.class);
 	return http.build();
 	 }
+
+
 	 
 	
 	

@@ -8,6 +8,6 @@ import com.tom.passwordSafetyBox.entity.Credential;
 
 public interface CredentialRepository extends JpaRepository<Credential,Long>{
 List<Credential> findAllByUserId(Long userId);
-Credential findByUrlandLoginId(String url,String loginId);
-Boolean isCredentialExists(String url,String loginId);
+Credential findByUrlAndLoginId(String url,String loginId);
+Boolean existsCredentialByUrlAndLoginId(String url,String loginId);
 }
