@@ -27,11 +27,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.tom.passwordSafetyBox.Service.AppRoleService;
 import com.tom.passwordSafetyBox.Service.UserService;
 import com.tom.passwordSafetyBox.entity.AppUser;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+@CrossOrigin(origins = "*")
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
@@ -64,6 +66,7 @@ public class SecurityConfig {
 		.authorizeHttpRequests(auth->auth.requestMatchers(HttpMethod.DELETE,"/safetybox/users/**").hasAuthority("ADMIN"))
 		.authorizeHttpRequests(auth->auth.requestMatchers(HttpMethod.POST,"/safetybox/addRoleToUser").hasAuthority("ADMIN"))
 		.authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
+		.cors(cors->cors.configurationSource(request->new CorsConfiguration().applyPermitDefaultValues()))
 		.csrf(csrf->csrf.disable())
 		.sessionManagement(session->session.sessionCreationPolicy( SessionCreationPolicy.STATELESS))
 		.headers(frameOptions->frameOptions.disable())

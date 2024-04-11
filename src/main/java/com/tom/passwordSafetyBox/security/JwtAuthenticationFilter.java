@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -27,14 +28,21 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	public JwtAuthenticationFilter (AuthenticationManager authenticationManager) {
 		this.authenticationManager=authenticationManager;
 	}
-	
+
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("attemptAuthentification");
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		System.out.println(email);
-		System.out.println(password);
+		String email, password;
+		try {
+			Map<String, String> requestMap = new ObjectMapper().readValue(request.getInputStream(), Map.class);
+			email = requestMap.get("email");
+			password = requestMap.get("password");
+			System.out.println(email);
+			System.out.println(password);
+		} catch (IOException e) {
+			throw new AuthenticationServiceException(e.getMessage(), e);
+		}
+
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(email,password);
 		return authenticationManager.authenticate(authenticationToken);
 	}
@@ -56,8 +64,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 				.sign(algorithm);
 		
 		Map<String,String> idToken = new HashMap<>();
-		idToken.put("access-token", jwtAccessToken);
-		idToken.put("refresh-token",jwtRefreshToken);
+		idToken.put("accessToken", jwtAccessToken);
+		idToken.put("refreshToken",jwtRefreshToken);
 		response.setContentType("application/json");
 		new ObjectMapper().writeValue(response.getOutputStream(),idToken);
 		
