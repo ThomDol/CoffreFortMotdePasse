@@ -12,20 +12,23 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.tom.passwordSafetyBox.Mapper.UserMapper;
 import com.tom.passwordSafetyBox.Service.UserService;
 import com.tom.passwordSafetyBox.entity.AppUser;
 
 @Service
 public class AppUserDetailService  implements UserDetailsService {
-	
+
 	@Autowired
 	private UserService userService;
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		AppUser appUser = this.userService.loadUserByEmail(email);
+		AppUser appUser = UserMapper.mapToUser(this.userService.loadUserByEmail(email));
+		AppUser.toString(appUser);
 		Collection<GrantedAuthority> authorities = new ArrayList<>();
 		appUser.getAppRoles().forEach(role->authorities.add(new SimpleGrantedAuthority(role.getRoleName())));
+		System.out.println(authorities);
 		return new User(appUser.getEmail(),appUser.getPassword(),authorities);
 	}
 

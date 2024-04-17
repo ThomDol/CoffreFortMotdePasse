@@ -27,10 +27,7 @@ public class CredentialDtoController {
 	@PostMapping(path="/credentials/{id}",name="create")
 	@ResponseStatus(HttpStatus.CREATED)
 	public CredentialDto createCredential(@RequestBody CredentialDto credentialDto,@PathVariable Long id){
-		if (credentialService.isCredentialInDataBase(credentialDto.getUrl(), credentialDto.getLoginId())) {
-			// Retournez une exception appropriée ou gérez la validation de la manière qui vous convient le mieux
-			throw new CredentialExistsException("Credential with URL " + credentialDto.getUrl() + " and login " + credentialDto.getLoginId() + " already exists");
-		}
+
 		return  this.credentialService.addCredentialToUSer(credentialDto,id);
 		
 	}

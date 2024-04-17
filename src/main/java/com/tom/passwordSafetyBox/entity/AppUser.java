@@ -30,23 +30,29 @@ import lombok.Setter;
 @Table(name="Users")
 @Entity
 public class AppUser {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-@Column(name = "userId")
-private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "userId")
+    private Long id;
 
-@Column(name = "Email", unique = true)
-private String email;
+    @Column(name = "Email")
+    private String email;
 
-@Column(name = "Password")
-private String password;
+    @Column(name = "Password")
+    private String password;
 
-@OneToMany(mappedBy = "user")
-private List<Credential> credentials;
+    @OneToMany(mappedBy = "user")
+    private List<Credential> credentials;
 
-@ManyToMany(fetch = FetchType.EAGER)
-private Collection<AppRole> appRoles=new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Collection<AppRole> appRoles=new ArrayList<>();
 
 
+
+    public static void toString (AppUser user) {
+        System.out.println(
+                user.getEmail()+"-"+user.getId()+"-"+user.getPassword()+"-"+user.getAppRoles()
+        );
+    }
 
 }

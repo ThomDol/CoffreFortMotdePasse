@@ -36,8 +36,8 @@ public class UserService {
 		return users.stream().map(user->UserMapper.mapToUserDto(user)).collect(Collectors.toList());
 	}
 	
-	public AppUser loadUserByEmail(String email) {
-        return this.userRepository.findByEmail(email);}
+	public UserDto loadUserByEmail(String email) {
+        return UserMapper.mapToUserDto(this.userRepository.findAppUserByEmail(email));}
 	
 	
 	public UserDto getUserById (Long id){

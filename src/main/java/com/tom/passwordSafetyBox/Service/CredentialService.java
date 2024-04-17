@@ -61,9 +61,7 @@ public class CredentialService {
 
 	}
 
-	public boolean isCredentialInDataBase(String url,String login){
-		return this.credentialRepository.existsCredentialByUrlAndLoginId(url,login);
-	}
+
 
 }
 

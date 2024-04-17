@@ -25,7 +25,7 @@ public class AppRoleService {
         return this.appRoleRepository.save(appRole); }
 	
 	public void addRoleToUser(String email, String roleName) {
-        AppUser appUser = userRepository.findByEmail(email);
+        AppUser appUser = userRepository.findAppUserByEmail(email);
         AppRole appRole = appRoleRepository.findByRoleName(roleName);
         appUser.getAppRoles().add(appRole);}
 
