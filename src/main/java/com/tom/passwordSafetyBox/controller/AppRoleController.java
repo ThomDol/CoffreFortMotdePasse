@@ -1,10 +1,8 @@
 package com.tom.passwordSafetyBox.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import com.tom.passwordSafetyBox.Service.AppRoleService;
 import com.tom.passwordSafetyBox.Service.UserService;
@@ -29,6 +27,7 @@ public class AppRoleController {
 	    }
 	 
 	 @PostMapping(path = "/addRoleToUser")
+	 @ResponseStatus(HttpStatus.CREATED)
 	    public void addRoleToUser(@RequestBody RoleUserForm roleUserForm) {
 	       this.appRoleService.addRoleToUser(roleUserForm.getEmail(),roleUserForm.getRoleName());
 	    }

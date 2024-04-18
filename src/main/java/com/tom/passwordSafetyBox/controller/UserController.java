@@ -33,7 +33,7 @@ public class UserController {
 
 	@PostMapping(path="/addUsers",name="create")
 	@ResponseStatus(HttpStatus.CREATED)
-	public UserDto createEmployee(@RequestBody UserDto UserDto){
+	public UserDto createUser(@RequestBody UserDto UserDto){
 		return  this.userService.addNewUSer(UserDto);
 
 	}
@@ -54,6 +54,11 @@ public class UserController {
 	@ResponseStatus(HttpStatus.OK)
 	public UserDto getUserByEmail (@PathVariable String email){
 		return this.userService.loadUserByEmail(email);
+	}
+	@GetMapping(path="/users/{id}",name="read")
+	@ResponseStatus(HttpStatus.OK)
+	public UserDto getUserById (@PathVariable Long id){
+		return this.userService.getUserById(id);
 	}
 
 
