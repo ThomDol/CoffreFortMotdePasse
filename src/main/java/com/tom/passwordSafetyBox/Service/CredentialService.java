@@ -3,6 +3,7 @@ package com.tom.passwordSafetyBox.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.tom.passwordSafetyBox.crypto.Crypto;
 import org.springframework.stereotype.Service;
 
 import com.tom.passwordSafetyBox.Dto.CredentialDto;
@@ -31,25 +32,30 @@ public class CredentialService {
 		this.credentialRepository.delete(credentialToDelete);
 	}
 	
-	public CredentialDto updateCredential (CredentialDto credentialDto,Long id) {
+	public CredentialDto updateCredential (CredentialDto credentialDto,Long id) throws Exception {
 		Credential credential = this.credentialRepository.findById(id).orElseThrow(()->new CredentialNotFoundException("Credential not found")); 
 		credential.setUrl(credentialDto.getUrl());
 		credential.setLoginId(credentialDto.getLoginId());
-		credential.setPassword(credentialDto.getPassword());
+		credential.setPassword(Crypto.cryptService(credentialDto.getPassword()));
 		return CredentialMapper.mapToCredentialDto(this.credentialRepository.save(credential));
 	}
 	
-	public List<CredentialDto> getAllCredential (Long userId){
+	public List<CredentialDto> getAllCredential (Long userId) throws Exception {
 		List<Credential>credentials = this.credentialRepository.findAllByUserId(userId);
-		return credentials.stream().map(credential->CredentialMapper.mapToCredentialDto(credential)).collect(Collectors.toList());
+		for(Credential credential:credentials){
+			credential.setPassword(Crypto.decryptService(credential.getPassword()));
+		}
+		return credentials.stream().map(credential->
+
+				CredentialMapper.mapToCredentialDto(credential)).collect(Collectors.toList());
 	}
 	
-	public CredentialDto addCredentialToUSer (CredentialDto credentialDto,Long userId) {
+	public CredentialDto addCredentialToUSer (CredentialDto credentialDto,Long userId) throws Exception {
 		AppUser user = this.userRepository.findById(userId).orElseThrow(()->new UserNotFoundException("user non connecté"));
 		Credential credential = new Credential();
         credential.setUrl(credentialDto.getUrl());
         credential.setLoginId(credentialDto.getLoginId());
-        credential.setPassword(credentialDto.getPassword());
+        credential.setPassword(Crypto.cryptService(credentialDto.getPassword()));
         credential.setUser(user);
         Credential savedCredential = credentialRepository.save(credential);
         return CredentialMapper.mapToCredentialDto(savedCredential);

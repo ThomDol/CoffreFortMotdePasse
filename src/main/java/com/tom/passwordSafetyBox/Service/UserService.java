@@ -3,6 +3,7 @@ package com.tom.passwordSafetyBox.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.tom.passwordSafetyBox.Exception.UserAlreadyExistException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,16 +22,23 @@ import lombok.AllArgsConstructor;
 public class UserService {
 	private UserRepository userRepository;
 	private PasswordEncoder passwordEncoder;
-	
-	
+
+
 	public UserDto addNewUSer (UserDto userDto) {
 		AppUser user = UserMapper.mapToUser(userDto);
-		String password = user.getPassword();
-		user.setPassword(passwordEncoder.encode(password));
-		AppUser userSaved = this.userRepository.save(user);
-		return UserMapper.mapToUserDto(userSaved);
+		String email = user.getEmail();
+
+		if(!this.userRepository.existsByEmail(email)){
+
+			String password = user.getPassword();
+			user.setPassword(passwordEncoder.encode(password));
+			AppUser userSaved = this.userRepository.save(user);
+			return UserMapper.mapToUserDto(userSaved);}
+		else {throw new UserAlreadyExistException("User with email " + email + " already exists.");
+		}
 	}
-	
+
+
 	public List<UserDto> getAllUser(){
 		List<AppUser>users = this.userRepository.findAll();
 		return users.stream().map(user->UserMapper.mapToUserDto(user)).collect(Collectors.toList());

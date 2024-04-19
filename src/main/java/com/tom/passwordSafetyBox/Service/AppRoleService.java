@@ -29,6 +29,18 @@ public class AppRoleService {
         AppRole appRole = appRoleRepository.findByRoleName(roleName);
         appUser.getAppRoles().add(appRole);}
 
+	public void updateRoleFromUser (String email, String roleName){
+		AppUser appUser = userRepository.findAppUserByEmail(email);
+		AppRole appRole = appRoleRepository.findByRoleName(roleName);
+		if (appUser.getAppRoles().isEmpty()){
+			appUser.getAppRoles().add(appRole);
+		}
+		else{
+			appUser.getAppRoles().clear();
+			appUser.getAppRoles().add(appRole);
+		}
+	}
+
 }
 
 

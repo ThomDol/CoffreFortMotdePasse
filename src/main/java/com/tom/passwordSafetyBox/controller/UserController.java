@@ -2,8 +2,10 @@ package com.tom.passwordSafetyBox.controller;
 
 import java.util.List;
 
+import com.tom.passwordSafetyBox.Exception.UserAlreadyExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,12 +33,16 @@ public class UserController {
 	private UserService userService;
 
 
-	@PostMapping(path="/addUsers",name="create")
-	@ResponseStatus(HttpStatus.CREATED)
-	public UserDto createUser(@RequestBody UserDto UserDto){
-		return  this.userService.addNewUSer(UserDto);
-
+	@PostMapping(path="/addUsers", name="create")
+	public ResponseEntity<?> createUser(@RequestBody UserDto userDto) {
+		try {
+			UserDto createdUser = userService.addNewUSer(userDto);
+			return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+		} catch (UserAlreadyExistException e) {
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("User with email " + userDto.getEmail() + " already exists.");
+		}
 	}
+
 
 	@GetMapping(path="/users",name="read")
 	@ResponseStatus(HttpStatus.OK)

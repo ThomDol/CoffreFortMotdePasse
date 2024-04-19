@@ -6,5 +6,6 @@ import com.tom.passwordSafetyBox.entity.AppUser;
 
 public interface UserRepository extends JpaRepository<AppUser,Long> {
 	AppUser findAppUserByEmail (String email);
+	boolean existsByEmail (String Email);
 
 }

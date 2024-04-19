@@ -26,7 +26,7 @@ public class CredentialDtoController {
 	
 	@PostMapping(path="/credentials/{id}",name="create")
 	@ResponseStatus(HttpStatus.CREATED)
-	public CredentialDto createCredential(@RequestBody CredentialDto credentialDto,@PathVariable Long id){
+	public CredentialDto createCredential(@RequestBody CredentialDto credentialDto,@PathVariable Long id) throws Exception {
 
 		return  this.credentialService.addCredentialToUSer(credentialDto,id);
 		
@@ -40,13 +40,13 @@ public class CredentialDtoController {
 	
 	@PutMapping(path="/credentials/{id}", name="update")
 	@ResponseStatus(HttpStatus.OK)
-	public CredentialDto update(@RequestBody CredentialDto credentialDto,@PathVariable("id") Long id) {
+	public CredentialDto update(@RequestBody CredentialDto credentialDto,@PathVariable("id") Long id) throws Exception {
 		return this.credentialService.updateCredential(credentialDto, id);
 	}
 	
 	@GetMapping(path="/credentials/{userId}",name="read")
 	@ResponseStatus(HttpStatus.OK)
-	public List<CredentialDto> getAllEmployees(@PathVariable Long userId){
+	public List<CredentialDto> getAllEmployees(@PathVariable Long userId) throws Exception {
 		return this.credentialService.getAllCredential(userId);
 	}
 

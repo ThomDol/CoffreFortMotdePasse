@@ -31,6 +31,13 @@ public class AppRoleController {
 	    public void addRoleToUser(@RequestBody RoleUserForm roleUserForm) {
 	       this.appRoleService.addRoleToUser(roleUserForm.getEmail(),roleUserForm.getRoleName());
 	    }
+
+	@PutMapping(path="/roles", name="update")
+	@ResponseStatus(HttpStatus.OK)
+		public void updateRole(@RequestBody RoleUserForm roleUserForm){
+		 this.appRoleService.updateRoleFromUser(roleUserForm.getEmail(),roleUserForm.getRoleName());
+
+		}
 }
 
 @Data
