@@ -43,6 +43,11 @@ public class CredentialDtoController {
 	public CredentialDto update(@RequestBody CredentialDto credentialDto,@PathVariable("id") Long id) throws Exception {
 		return this.credentialService.updateCredential(credentialDto, id);
 	}
+	@GetMapping(path="/credentials/ById/{id}",name="read")
+	@ResponseStatus(HttpStatus.OK)
+	public CredentialDto getOneCredentialById (@PathVariable Long id){
+		return this.credentialService.getCredentialById(id);
+	}
 	
 	@GetMapping(path="/credentials/{userId}",name="read")
 	@ResponseStatus(HttpStatus.OK)

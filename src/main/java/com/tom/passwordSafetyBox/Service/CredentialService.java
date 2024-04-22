@@ -39,6 +39,11 @@ public class CredentialService {
 		credential.setPassword(Crypto.cryptService(credentialDto.getPassword()));
 		return CredentialMapper.mapToCredentialDto(this.credentialRepository.save(credential));
 	}
+
+	public CredentialDto getCredentialById (Long id){
+		Credential credential = this.credentialRepository.findById(id).orElseThrow(()->new CredentialNotFoundException("Credential not found"));
+		return CredentialMapper.mapToCredentialDto(credential);
+	}
 	
 	public List<CredentialDto> getAllCredential (Long userId) throws Exception {
 		List<Credential>credentials = this.credentialRepository.findAllByUserId(userId);
