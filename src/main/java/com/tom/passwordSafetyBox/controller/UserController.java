@@ -1,5 +1,6 @@
 package com.tom.passwordSafetyBox.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import com.tom.passwordSafetyBox.Exception.UserAlreadyExistException;
@@ -48,6 +49,12 @@ public class UserController {
 	@ResponseStatus(HttpStatus.OK)
 	public List<UserDto> getAllUsers(){
 		return this.userService.getAllUser();
+	}
+
+	@GetMapping(path="/profile",name="read")
+	@ResponseStatus(HttpStatus.OK)
+	public UserDto profile (Principal principal){
+		return this.userService.loadUserByEmail(principal.getName());
 	}
 
 	@DeleteMapping(path="/users/{id}", name="delete")
