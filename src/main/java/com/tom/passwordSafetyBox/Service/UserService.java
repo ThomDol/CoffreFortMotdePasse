@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.tom.passwordSafetyBox.Exception.UserAlreadyExistException;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,8 @@ public class UserService {
 
 
 	public UserDto addNewUSer (UserDto userDto) {
+		userDto.setEmail(StringEscapeUtils.escapeHtml4(userDto.getEmail()).trim());
+		userDto.setPassword(StringEscapeUtils.escapeHtml4(userDto.getPassword()));
 		AppUser user = UserMapper.mapToUser(userDto);
 		String email = user.getEmail();
 

@@ -45,7 +45,7 @@ public class CredentialDtoController {
 	}
 	@GetMapping(path="/credentials/ById/{id}",name="read")
 	@ResponseStatus(HttpStatus.OK)
-	public CredentialDto getOneCredentialById (@PathVariable Long id){
+	public CredentialDto getOneCredentialById (@PathVariable Long id) throws Exception {
 		return this.credentialService.getCredentialById(id);
 	}
 	
