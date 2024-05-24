@@ -1,0 +1,10 @@
+
+—
+java:S1192"UDefine a constant instead of duplicating this literal "Credential not found" 3 times.(¶‚Õ<8³þÖú1J$82be295b-4899-42a4-a5ab-25858c1b4b98
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Å“Çˆþÿÿÿÿ8³þÖú1J$012ea7dc-adff-46fc-886a-3f4d27eb6162
+|
+java:S1874;"9Remove this use of "StringEscapeUtils"; it is deprecated.(¯œß³8µ³þÖú1J$1cf40e11-8732-4b93-bc5a-9e1ef1968511
+|
+java:S1874<"9Remove this use of "StringEscapeUtils"; it is deprecated.(¾ñô¾8¶³þÖú1J$c87542b7-6abc-4ed0-8886-f4c8e3d5f71b
+
+java:S1874="9Remove this use of "StringEscapeUtils"; it is deprecated.(€•õËúÿÿÿÿ8¶³þÖú1J$828ec526-ffd8-421f-8dbe-4ba740f8c425

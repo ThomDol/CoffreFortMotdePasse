@@ -2,13 +2,13 @@ package com.tom.passwordSafetyBox.controller;
 
 import java.util.List;
 
-import com.tom.passwordSafetyBox.Exception.CredentialExistsException;
+import com.tom.passwordSafetyBox.Service.CredentialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import com.tom.passwordSafetyBox.Dto.CredentialDto;
-import com.tom.passwordSafetyBox.Service.CredentialService;
+
 
 import lombok.AllArgsConstructor;
 

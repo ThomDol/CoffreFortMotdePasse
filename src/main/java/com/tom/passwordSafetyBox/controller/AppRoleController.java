@@ -1,11 +1,10 @@
 package com.tom.passwordSafetyBox.controller;
 
+import com.tom.passwordSafetyBox.Service.AppRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import com.tom.passwordSafetyBox.Service.AppRoleService;
-import com.tom.passwordSafetyBox.Service.UserService;
+import com.tom.passwordSafetyBox.Service.UserServiceImpl;
 import com.tom.passwordSafetyBox.entity.AppRole;
 
 import lombok.Data;
@@ -18,7 +17,7 @@ public class AppRoleController {
 	private AppRoleService appRoleService;
 	
 	@Autowired
-	private UserService userService;
+	private UserServiceImpl userService;
 
 	
 	 @PostMapping(path = "/roles")

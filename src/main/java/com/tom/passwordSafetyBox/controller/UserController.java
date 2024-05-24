@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 
 import com.tom.passwordSafetyBox.Exception.UserAlreadyExistException;
+import com.tom.passwordSafetyBox.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tom.passwordSafetyBox.Dto.UserDto;
-import com.tom.passwordSafetyBox.Mapper.UserMapper;
-import com.tom.passwordSafetyBox.Service.UserService;
+import com.tom.passwordSafetyBox.Service.UserServiceImpl;
 
 import lombok.AllArgsConstructor;
 

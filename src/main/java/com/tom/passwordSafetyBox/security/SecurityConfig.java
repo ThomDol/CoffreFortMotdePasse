@@ -13,11 +13,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.filter.CorsFilter;
 
-import com.tom.passwordSafetyBox.Service.UserService;
+import com.tom.passwordSafetyBox.Service.UserServiceImpl;
 
 
 @Configuration
@@ -25,7 +23,7 @@ import com.tom.passwordSafetyBox.Service.UserService;
 public class SecurityConfig {
 
 	@Autowired
-	private UserService userService;
+	private UserServiceImpl userService;
 
 	@Autowired
 	private AppUserDetailService appUserDetailService;
